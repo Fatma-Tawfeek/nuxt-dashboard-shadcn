@@ -2,24 +2,27 @@
     <div>
         <header class="flex items-center gap-2 p-2 hover:scale-[101/5] transition cursor-pointer">
             <Logo />
-            <p class="font-bold">Nuxt-Finance</p>
+            <p class="font-bold text-black">Nuxt-Finance</p>
         </header>
         <div class="px-4 grow">
             <div class="grid gap-4">
-                <div
+                <NuxtLink
                     v-for="(item, index) in items"
                     :key="index"
                     class="flex items-center gap-2 px-2 py-1 transition rounded cursor-pointer hover:bg-neutral-100"
+                    :to="item.to"
                 >
                     <img :src="item.src" :alt="item.title" class="w-6" />
                     <span>{{ item.title }}</span>
-                </div>
+                </NuxtLink>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { NuxtLink } from "#components";
+
 const items = ref([
     {
         title: "Overview",

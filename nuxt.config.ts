@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         plugins: [tailwindcss()],
     },
 
-    modules: ["shadcn-nuxt"],
+    modules: ["shadcn-nuxt", "nuxt-highcharts"],
     shadcn: {
         /**
          * Prefix for all the imported component
@@ -21,5 +21,13 @@ export default defineNuxtConfig({
          * @default "./app/components/ui"
          */
         componentDir: "./app/components/ui",
+    },
+    app: {
+        head: {
+            title: "Nuxt-Finance",
+            titleTemplate: "%s - Dashboard",
+            meta: [{ name: "description", content: "Nuxt-Finance" }],
+            link: [{ rel: "icon", type: "image/x-icon", href: "/images/logo.png" }],
+        },
     },
 });
