@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div class="z-50 flex lg:hidden items-center justify-between w-full h-full p-4">
+        <div class="z-50 flex lg:hidden items-center justify-between w-full min-h-screen p-4">
             <Logo />
             <img
                 src="/images/hamburger-menu-svgrepo-com.svg"
@@ -8,7 +8,7 @@
                 class="w-8 h-8 cursor-pointer left-2 top-2"
                 @click="open = !open"
             />
-            <div v-if="open" class="fixed top-0 left-0 z-50 w-full h-full h-screen bg-white">
+            <div v-if="open" class="fixed top-0 left-0 z-50 w-full min-h-screen bg-white">
                 <img
                     src="/images/close-svgrepo-com.svg"
                     alt="hamburger"

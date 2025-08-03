@@ -36,17 +36,17 @@ const items = ref([
     },
     {
         title: "Account",
-        to: "/account",
+        to: "/",
         src: "/images/account-svgrepo-com.svg",
     },
     {
         title: "Contacts",
-        to: "/contacts",
+        to: "/",
         src: "/images/contacts-svgrepo-com.svg",
     },
     {
         title: "Settings",
-        to: "/settings",
+        to: "/",
         src: "/images/settings-svgrepo-com.svg",
     },
 ]);
