@@ -20,13 +20,13 @@
         </div>
         <div class="hidden lg:flex w-[250px] h-screen flex flex-col justify-between border-r">
             <SidebarMenu />
-            <div>UserItem</div>
+            <UserItem />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const open = ref(true);
+const open = ref(false);
 </script>
 
 <style scoped></style>
