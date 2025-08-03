@@ -1,15 +1,21 @@
 <template>
-    <div class="border p-4 rounded-lg"><highchart :options="options" /></div>
+    <div class="border p-4 rounded-lg">
+        <highchart :options="options" />
+    </div>
 </template>
 
 <script setup lang="ts">
-let props = defineProps(["currentCategory", "data"]);
-let data = props.data || [];
-let currentCategory = props.currentCategory || "today";
+import { computed, ref, watch } from "vue";
 
-let categories = ref({
+const props = defineProps<{
+    currentCategory: string;
+    data: number[];
+}>();
+
+const categories = ref({
     today: Array.from({ length: 24 }, (_, i) => `${i}:00`),
     week: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    month: [] as string[],
     year: [
         "January",
         "February",
@@ -26,6 +32,23 @@ let categories = ref({
     ],
 });
 
+function generateMonth() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const monthIndex = now.getMonth(); // 0-based
+    const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    const monthDates: string[] = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+        const dayString = ("0" + d).slice(-2);
+        const monthString = ("0" + (monthIndex + 1)).slice(-2);
+        monthDates.push(`${monthString}/${dayString}`);
+    }
+    categories.value.month = monthDates;
+}
+generateMonth();
+
+const normalizedCategory = computed(() => props.currentCategory.toLowerCase());
+
 const options = computed(() => {
     return {
         chart: {
@@ -35,14 +58,14 @@ const options = computed(() => {
             },
         },
         legend: {
-            enbled: false,
+            enabled: false,
         },
         title: {
             text: "",
         },
         xAxis: {
             gridLineColor: "transparent",
-            categories: categories.value[currentCategory],
+            categories: categories.value[normalizedCategory.value] || [],
         },
         yAxis: {
             gridLineColor: "transparent",
@@ -58,15 +81,15 @@ const options = computed(() => {
                 dataLabels: {
                     enabled: false,
                 },
-                enableMouseTracking: false,
+                enableMouseTracking: true,
             },
         },
         series: [
             {
                 name: "line",
-                lineWidth: "4px",
+                lineWidth: 4,
                 color: {
-                    linearGradient: { y1: 0, y2: 1, x1: 0, x2: 0 },
+                    linearGradient: {},
                     stops: [
                         [0, "rgba(252,176,69,1)"],
                         [0.33, "rgba(253,29,29,1)"],
@@ -74,34 +97,10 @@ const options = computed(() => {
                         [1, "rgba(29,217,83,1)"],
                     ],
                 },
-                data,
+                data: props.data,
             },
         ],
     };
-});
-
-function generateMonth() {
-    let currentDate = new Date();
-    let currentMonth = currentDate.getMonth() + 1;
-    let currentYear = currentDate.getFullYear();
-
-    function generateMonthDates() {
-        let monthDates = [];
-        let daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
-        for (let day = 1; day <= daysInMonth; day++) {
-            let dayString = ("0" + day).slice(-2);
-            let monthString = ("0" + currentMonth).slice(-2);
-            monthDates.push(monthString + "/" + dayString);
-        }
-        return monthDates;
-    }
-    let month = generateMonthDates();
-    categories = { ...categories, month };
-    return month;
-}
-
-onMounted(() => {
-    generateMonth();
 });
 </script>
 
