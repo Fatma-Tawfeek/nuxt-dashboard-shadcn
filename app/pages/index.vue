@@ -5,10 +5,9 @@
                 <p>Hi, welcome back Fatma!</p>
                 <h1>Dashboard</h1>
             </div>
-            <div class="w-[120px] h-[36px] bg-neutral-200"></div>
+            <ProductNew />
         </header>
         <main class="grid gap-4">
-            <!-- ربط مباشر بالقيمة -->
             <Tabs v-model="currentCategory">
                 <TabsList class="w-[400px]">
                     <TabsTrigger
