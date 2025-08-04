@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <div class="z-50 flex lg:hidden items-center justify-between w-full min-h-screen p-4">
+        <div class="z-50 flex lg:hidden items-center justify-between w-full h-full p-4">
             <Logo />
             <img
                 src="/images/hamburger-menu-svgrepo-com.svg"
